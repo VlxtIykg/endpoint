@@ -1,0 +1,5 @@
+curl -H 'Content-Type: application/json' \
+      -d '{ "id": 1, "status": 0, "capacity": "463k", "coins_per_hour":"15m","total_made":"150m"}' \
+      -X POST \
+      http://localhost:3000/bot
+
