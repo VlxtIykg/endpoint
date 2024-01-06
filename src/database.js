@@ -1,5 +1,6 @@
+const cwd = "/home/kami/sb_scripts/fundamentalis/endpoint"
 const Database = require("better-sqlite3")(
-  process.cwd() + "\\data\\minions.db",
+  cwd + "/data/minions.db",
   {
     verbose: console.log,
   }

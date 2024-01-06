@@ -1,6 +1,7 @@
 const express = require("express");
 
-const dbl = require(process.cwd() + "\\src\\database.js");
+const cwd = "/home/kami/sb_scripts/fundamentalis/endpoint"
+const dbl = require(cwd + "/src/database.js");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
