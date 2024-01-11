@@ -4,7 +4,7 @@ const dbl = require(process.cwd() + "\\src\\database.js");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const PORT = process.env.PORT || 3131;
+const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
