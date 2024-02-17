@@ -1,10 +1,12 @@
 const express = require("express");
 
-const dbl = require(process.cwd() + "\\src\\database.js");
+const cwd = "/home/kami/sb_scripts/fundamentalis/endpoint"
+const dbl = require(cwd + "/src/database.js");
 const cors = require("cors");
 const helmet = require("helmet");
+const axios = require("axios");
 const app = express();
-const PORT = process.env.PORT || 3131;
+const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
@@ -139,4 +141,11 @@ app.post("/bot_status", async (request, response) => {
     tm,
   });
   return response.status(200).json({ data: updateDbResults });
+});
+
+
+app.get("/posture_fit/lts_version", async (request, response) => {
+  axios.get("https://api.github.com/repos/kamikamer/capstone/releases/latest").then((res) => {
+      return response.status(200).send(res.data.tag_name.split("v")[1]);
+    });
 });
