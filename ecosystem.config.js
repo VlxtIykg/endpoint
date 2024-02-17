@@ -6,12 +6,9 @@ module.exports = {
       args: "start",
       exec_mode: "cluster",
       instances: "max",
-      env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
-        NODE_ENV: "production",
-      },
+      namespace: "pfl",
+      autorestart: false,
+      interpreter: "/home/kami/.nvm/versions/node/v20.10.0/bin/node",
     },
   ],
 };
