@@ -22,6 +22,11 @@ module.exports.createTable = async () => {
 			amount INTEGER NOT NULL
 			)`
   ).run();
+  Database.prepare(
+  `CREATE TABLE IF NOT EXISTS posturefit ( 
+    highscore INTEGER NOT NULL
+    )`
+  ).run();
 };
 
 module.exports.emergencyButton = dbNAME => {
@@ -55,6 +60,13 @@ module.exports.getBotStatistics = () => {
   return Database.prepare(
     `SELECT *
 		FROM bot`
+  ).all();
+};
+
+module.exports.getPfHsStatistics = () => {
+  return Database.prepare(
+    `SELECT highscore
+		FROM posturefit`
   ).all();
 };
 
@@ -106,6 +118,20 @@ module.exports.postStatusStatistics = (id, status) => {
     return "Unsuccesful post.";
   }
 }
+
+module.exports.postPfHsStatistics = (highscore) => {
+  try {
+    getCurrent = this.getBotStatistics()[0].status;
+    setCurrent = "UPDATE posturefit SET highscore = ?";
+    Database.prepare(setCurrent).run(highscore);
+    newCurrent = this.getBotStatistics()[0].status;
+    return `Succesful post. Changed highscore from ${getCurrent} to ${newCurrent}!`;
+  } catch (error) {
+    console.log(error);
+    return "Unsuccesful post.";
+  }
+}
+
 
 // console.log(this.getAllTables());
 // console.log(this.getAll());
