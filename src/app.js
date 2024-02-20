@@ -149,3 +149,31 @@ app.get("/posture_fit/lts_version", async (request, response) => {
       return response.status(200).send(res.data.tag_name.split("v")[1]);
     });
 });
+
+app.get("/posture_fit/highscore", async (request, response) => {
+  const data = dbl.getBotStatistics()[0];
+  if (data === null) {
+    response.status(504).json({ reason: "Invalid int from server, highscore might be null?" });
+  }
+  return response.status(200).json(dbl.getPfHsStatistics()[0]);
+});
+
+app.post("/posture_fit/highscore", async (request, response) => {
+  const message = request.body;
+
+  if (!message) {
+    return response
+      .status(400)
+      .json({ message: "You must include a message in your request." });
+  }
+
+  if (isNaN(message)) {
+    return response.status(400).json({
+      error: true,
+      message: "The message is not a number.",
+    });
+  }
+
+  const updateDbResults = dbl.postPfHsStatistics(message);
+  return response.status(200).send( updateDbResults );
+});
